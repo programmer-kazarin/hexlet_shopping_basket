@@ -1,6 +1,7 @@
 const shoppingCart = {
   items: [],
   total: 0,
+  discounts: [{ code: 'HEXLET', discount: 10 }, { code: 'KLIM', discount: 5 }],
   addItem(name, price, quantity) {
     let item = this.findItem(name);
     if (!item) {
@@ -40,6 +41,13 @@ const shoppingCart = {
   clearCart() {
     this.items = [];
     this.total = 0;
+  },
+  applyDiscount(code) {
+    for (const discount of this.discounts) {
+      if (discount.code === code) {
+        this.total -= (this.total / 100) * discount.discount;
+      }
+    }
   },
   findItem(name) {
     for (const item of this.items) {
